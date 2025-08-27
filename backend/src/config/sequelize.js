@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
     logging: process.env.DB_LOGGING === 'true' ? console.log : false,
     define: {
       underscored: true,     // columnas con snake_case por defecto para creación de las tablas
-      freezeTableName: true // evita pluralizar nombres por defecto
+      freezeTableName: false // pluralizar nombres por defecto usuario => usuarios 
     },
     timezone: '-05:00'       // Zona horaria de Bogotá, normalmente toma la del server node, es buena practica por si se guardan logs en la base de datos
   }
