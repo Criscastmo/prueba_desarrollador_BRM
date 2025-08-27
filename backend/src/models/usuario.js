@@ -41,6 +41,7 @@ class Usuario extends Model {
         rol_id: {
           type: DataTypes.INTEGER,
           allowNull: false,
+          defaultValue: 2, // Rol de usuario por defecto
           references: {
             model: 'roles', // tabla roles
             key: 'id',
