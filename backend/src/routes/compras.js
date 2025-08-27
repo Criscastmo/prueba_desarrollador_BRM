@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { crearCompra } = require('../controllers/compraController');
+const compraController = require('../controllers/compraController');
 const { validateCompra } = require('../validators/compraValidators');
 const { verifyToken, checkRole } = require('../middlewares/authMiddleware');
 

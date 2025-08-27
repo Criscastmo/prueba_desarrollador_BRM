@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Proyecto usado como prueba tecnica para el cargo Backend Junior en la empresa BRM",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",

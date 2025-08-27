@@ -1,7 +1,7 @@
 const { Usuario, Producto, Compra, DetalleCompra } = require('../models');
 
 // Crear una compra
-exports.crearCompra = async (req, res) => {
+async function crearCompra(req, res) {
   const { productos } = req.body;
   const usuarioId = req.userId; // viene del token
 
@@ -40,6 +40,7 @@ exports.crearCompra = async (req, res) => {
       detalles.push({
         producto_id: producto.id,
         cantidad: item.cantidad,
+        precio_unitario: producto.precio,
         subtotal,
       });
     }
@@ -57,6 +58,7 @@ exports.crearCompra = async (req, res) => {
         compra_id: compra.id,
         producto_id: d.producto_id,
         cantidad: d.cantidad,
+        precio_unitario: d.precio_unitario,
         subtotal: d.subtotal,
       });
 
@@ -75,10 +77,10 @@ exports.crearCompra = async (req, res) => {
     console.error('Error en crearCompra:', error);
     return res.status(500).json({ error: 'Error al procesar la compra' });
   }
-};
+}
 
 // Obtener una factura
-exports.obtenerFactura = async (req, res) => {
+async function obtenerFactura(req, res){
   try {
     const compraId = Number(req.params.id);
     if (!Number.isInteger(compraId) || compraId <= 0) {
@@ -115,10 +117,10 @@ exports.obtenerFactura = async (req, res) => {
     console.error('Error en obtenerFactura:', err);
     return res.status(500).json({ error: 'Error al obtener la factura' });
   }
-};
+}
 
 // Listar todas las compras (solo admin)
-exports.listarCompras = async (req, res) => {
+async function listarCompras (req, res) {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
@@ -135,7 +137,7 @@ exports.listarCompras = async (req, res) => {
       ],
       limit,
       offset,
-      order: [['fecha', 'DESC']],
+      order: [['fecha_compra', 'DESC']],
     });
 
     res.json({
@@ -148,4 +150,10 @@ exports.listarCompras = async (req, res) => {
     console.error('Error al listar compras:', err);
     res.status(500).json({ error: 'Error al listar compras' });
   }
+}
+
+module.exports = {
+    crearCompra,
+    obtenerFactura,
+    listarCompras
 };
