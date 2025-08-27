@@ -13,7 +13,7 @@ module.exports = {
     // Registro de usuario
     async register(req, res) {
         try {
-            const { nombre, direccion, telefono, documento, email, password } = req.body;
+            const { nombre, direccion, telefono, documento, email, password} = req.body;
             // Verificar si el usuario ya existe por email
             const existe = await Usuario.findOne({ where: { email } });
             if (existe) {

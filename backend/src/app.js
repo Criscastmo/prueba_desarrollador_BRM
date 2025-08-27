@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const dotenv = require("dotenv");
 
 // Cargar variables de entorno
 dotenv.config();
@@ -13,9 +14,11 @@ app.use(morgan('dev')); // Logging de peticiones
 // Rutas
 const rutasAutenticacion = require('./routes/autentificacion');
 const rutasProductos = require('./routes/productos');
+const rutasCompras = require('./routes/compras');
 
 app.use('/api/auth', rutasAutenticacion); // Registro y login
 app.use('/api/productos', rutasProductos); // CRUD productos
+app.use('/api/compras', rutasCompras); // Procesos de compra y facturación
 
 // Rutas de prueba del servidor al aire
 app.get('/health', (req, res) => {

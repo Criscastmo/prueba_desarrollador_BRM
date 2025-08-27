@@ -4,14 +4,14 @@ const express = require('express');
 const router = express.Router();
 
 const authController = require('../controllers/authController');
-const { validateRegister, validateLogin } = require('../validators/authValidators');
+const { validateRegister, validateLogin } = require('../validators/authValidator');
 
 
-// POST /api/v1/auth/register
+// POST /api/auth/register
 router.post('/register', validateRegister, authController.register);
 
 
-// POST /api/v1/auth/login
+// POST /api/auth/login
 router.post('/login', validateLogin, authController.login);
 
 

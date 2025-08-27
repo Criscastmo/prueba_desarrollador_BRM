@@ -21,7 +21,7 @@ class Usuario extends Model {
           type: DataTypes.STRING(20),
           allowNull: true,
         },
-        documento_identidad: { //Lo ideal seria tener tipo de documento, se deja en string por las cedulas de extranjeria
+        documento: { //Lo ideal seria tener tipo de documento, se deja en string por las cedulas de extranjeria
           type: DataTypes.STRING(20),
           allowNull: false,
           unique: true,
