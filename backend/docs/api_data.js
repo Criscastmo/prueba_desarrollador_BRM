@@ -1,0 +1,702 @@
+define({ "api": [
+  {
+    "type": "post",
+    "url": "/auth/login",
+    "title": "Login usuario",
+    "name": "Login",
+    "group": "Auth",
+    "body": [
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "email",
+        "description": "<p>Email</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "password",
+        "description": "<p>Contraseña</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Usuario logueado</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Token para usar en otras rutas</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Error de login</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/autentificacion.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
+    "url": "/auth/register",
+    "title": "Registrar usuario",
+    "name": "Register",
+    "group": "Auth",
+    "body": [
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "nombre",
+        "description": "<p>Nombre del usuario</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "email",
+        "description": "<p>Email del usuario</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "documento",
+        "description": "<p>numero de identificación</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "telefono",
+        "description": "<p>Teléfono del usuario</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "direccion",
+        "description": "<p>Dirección del usuario</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "password",
+        "description": "<p>Contraseña</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Datos del usuario registrado</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/autentificacion.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
+    "url": "/compras/",
+    "title": "Crear compra",
+    "name": "CrearCompra",
+    "group": "Compras",
+    "body": [
+      {
+        "group": "Body",
+        "type": "Array",
+        "optional": false,
+        "field": "productos",
+        "description": "<p>Array de productos a comprar</p>"
+      },
+      {
+        "group": "Body",
+        "type": "Number",
+        "optional": false,
+        "field": "productos.id",
+        "description": "<p>ID del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "Number",
+        "optional": false,
+        "field": "productos.cantidad",
+        "description": "<p>Cantidad del producto</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Mensaje de confirmación</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "compra_id",
+            "description": "<p>ID de la compra creada</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total de la compra</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error según el caso</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/compras.js",
+    "groupTitle": "Compras"
+  },
+  {
+    "type": "get",
+    "url": "/compras/listar",
+    "title": "Listar todas las compras",
+    "name": "ListarCompras",
+    "group": "Compras",
+    "query": [
+      {
+        "group": "Query",
+        "type": "Number",
+        "optional": true,
+        "field": "page",
+        "description": "<p>Número de página (por defecto 1)</p>"
+      },
+      {
+        "group": "Query",
+        "type": "Number",
+        "optional": true,
+        "field": "limit",
+        "description": "<p>Resultados por página (por defecto 10)</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total de compras</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "pagina",
+            "description": "<p>Página actual</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "paginas",
+            "description": "<p>Total de páginas</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "resultados",
+            "description": "<p>Lista de compras con usuario y detalles</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/compras.js",
+    "groupTitle": "Compras"
+  },
+  {
+    "type": "get",
+    "url": "/compras/:id",
+    "title": "Obtener factura de compra",
+    "name": "ObtenerFactura",
+    "group": "Compras",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID de la compra</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "compra",
+            "description": "<p>Datos completos de la compra con usuario y detalles</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/compras.js",
+    "groupTitle": "Compras"
+  },
+  {
+    "type": "get",
+    "url": "/compras/historial",
+    "title": "Obtener historial de compras",
+    "name": "ObtenerHistorial",
+    "group": "Compras",
+    "query": [
+      {
+        "group": "Query",
+        "type": "Number",
+        "optional": true,
+        "field": "page",
+        "description": "<p>Número de página (por defecto 1)</p>"
+      },
+      {
+        "group": "Query",
+        "type": "Number",
+        "optional": true,
+        "field": "limit",
+        "description": "<p>Resultados por página (por defecto 10)</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total de compras del cliente</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "pagina",
+            "description": "<p>Página actual</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "paginas",
+            "description": "<p>Total de páginas</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "resultados",
+            "description": "<p>Lista de compras del cliente con detalles</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/compras.js",
+    "groupTitle": "Compras"
+  },
+  {
+    "type": "put",
+    "url": "/productos/:id",
+    "title": "Actualizar producto",
+    "name": "ActualizarProducto",
+    "group": "Productos",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID del producto</p>"
+          }
+        ]
+      }
+    },
+    "body": [
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": true,
+        "field": "numero_lote",
+        "description": "<p>Número de lote del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": true,
+        "field": "nombre",
+        "description": "<p>Nombre del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "Number",
+        "optional": true,
+        "field": "precio",
+        "description": "<p>Precio del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "Number",
+        "optional": true,
+        "field": "cantidad_disponible",
+        "description": "<p>Cantidad disponible en stock</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": true,
+        "field": "fecha_ingreso",
+        "description": "<p>Fecha de ingreso del producto</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "producto",
+            "description": "<p>Producto actualizado</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/productos.js",
+    "groupTitle": "Productos"
+  },
+  {
+    "type": "post",
+    "url": "/productos/",
+    "title": "Crear producto",
+    "name": "CrearProducto",
+    "group": "Productos",
+    "body": [
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "numero_lote",
+        "description": "<p>Número de lote del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "nombre",
+        "description": "<p>Nombre del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "Number",
+        "optional": false,
+        "field": "precio",
+        "description": "<p>Precio del producto</p>"
+      },
+      {
+        "group": "Body",
+        "type": "Number",
+        "optional": false,
+        "field": "cantidad_disponible",
+        "description": "<p>Cantidad disponible en stock</p>"
+      },
+      {
+        "group": "Body",
+        "type": "String",
+        "optional": false,
+        "field": "fecha_ingreso",
+        "description": "<p>Fecha de ingreso del producto</p>"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "producto",
+            "description": "<p>Producto creado</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/productos.js",
+    "groupTitle": "Productos"
+  },
+  {
+    "type": "delete",
+    "url": "/productos/:id",
+    "title": "Eliminar producto",
+    "name": "EliminarProducto",
+    "group": "Productos",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID del producto</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "mensaje",
+            "description": "<p>Mensaje de confirmación</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/productos.js",
+    "groupTitle": "Productos"
+  },
+  {
+    "type": "get",
+    "url": "/productos/",
+    "title": "Listar productos",
+    "name": "ListarProductos",
+    "group": "Productos",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "productos",
+            "description": "<p>Lista de todos los productos</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/productos.js",
+    "groupTitle": "Productos"
+  },
+  {
+    "type": "get",
+    "url": "/productos/:id",
+    "title": "Obtener producto",
+    "name": "ObtenerProducto",
+    "group": "Productos",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>ID del producto</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "producto",
+            "description": "<p>Datos del producto</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "error",
+            "description": "<p>Mensaje de error</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/routes/productos.js",
+    "groupTitle": "Productos"
+  }
+] });

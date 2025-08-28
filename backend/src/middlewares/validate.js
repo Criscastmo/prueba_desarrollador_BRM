@@ -1,4 +1,8 @@
-// middleware que valida req.body contra un schema Joi
+/** 
+* Middleware que valida req.body contra un schema Joi
+* Retorna 400 con detalles si la validación falla
+* Usa abortEarly: false para retornar todos los errores de una vez
+*/
 function validateSchema(schema) {
   return (req, res, next) => {
     const { error } = schema.validate(req.body, { abortEarly: false, convert: true });

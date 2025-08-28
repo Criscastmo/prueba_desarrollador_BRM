@@ -1,0 +1,15 @@
+define({
+  "name": "Backend Prueba Desarrollo",
+  "version": "1.0.0",
+  "description": "API de inventario para productos, autenticación y compras",
+  "url": "http://localhost:4000/api",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2025-08-28T07:11:02.626Z",
+    "url": "https://apidocjs.com",
+    "version": "0.29.0"
+  }
+});

@@ -1,3 +1,7 @@
+/**
+ * Archivo de configuración de los modelos
+ * Inicializa Sequelize, importa todos los modelos y define las asociaciones entre ellos
+ */
 const { Sequelize } = require('sequelize');
 const sequelize = require('../config/sequelize');
 

@@ -1,4 +1,8 @@
-// Controlador de registro y login
+/*
+* Controladores de registro y login
+* Utiliza bcrypt para hashear contraseñas y jsonwebtoken para manejar sesiones
+* Trae variables de entorno desde .env para configuración de JWT
+*/
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -19,7 +23,7 @@ module.exports = {
             if (existe) {
                 return res.status(400).json({ error: 'El email ya está registrado' });
             }
-
+            // Verificar si el usuario ya existe por documento
             const existeDocumento = await Usuario.findOne({ where: { documento } });
                 if (existeDocumento) {
                 return res.status(400).json({ error: 'El documento ya está registrado' });

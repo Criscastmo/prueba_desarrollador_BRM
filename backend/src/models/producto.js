@@ -1,3 +1,7 @@
+/**
+ * Modelo de Producto
+ * Define la estructura de la tabla 'productos' en la base de datos
+ */
 const { DataTypes, Model } = require('sequelize');
 
 class Producto extends Model {

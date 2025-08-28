@@ -1,3 +1,6 @@
+/**
+ * Script para sincronizar los modelos con la base de datos
+ */
 const { sequelize } = require('./models');
 
 (async () => {

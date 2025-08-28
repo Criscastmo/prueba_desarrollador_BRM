@@ -1,3 +1,8 @@
+/**
+ * Modelo de DetalleCompra
+ * Define la estructura de la tabla 'detalles_compras' en la base de datos 
+ * Esta tabla guarda los detalles de cada compra, relacionando productos con compras
+ */
 const { DataTypes, Model } = require('sequelize');
 
 class DetalleCompra extends Model {

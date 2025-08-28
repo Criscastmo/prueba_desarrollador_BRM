@@ -1,3 +1,7 @@
+/**
+ * Modelo de Compra
+ * Define la estructura de la tabla 'compras' en la base de datos
+ */
 const { DataTypes, Model } = require('sequelize');
 
 class Compra extends Model {

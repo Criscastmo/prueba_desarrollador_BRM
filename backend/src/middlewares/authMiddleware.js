@@ -1,4 +1,7 @@
-// Middleware para validar JWT y roles
+/**
+ * Middleware para validar JWT y roles
+ * Usa jsonwebtoken para verificar tokens
+*/
 const jwt = require('jsonwebtoken');
 const { Usuario, Rol } = require('../models');
 

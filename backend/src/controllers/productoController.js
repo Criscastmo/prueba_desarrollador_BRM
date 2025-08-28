@@ -1,4 +1,7 @@
-// Controlador CRUD de productos
+/**
+ * Controlador CRUD de productos
+ * tiene las funciones para crear, listar, ver, actualizar y eliminar productos  
+ * */ 
 const e = require('express');
 const { Producto } = require('../models');
 

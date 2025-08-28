@@ -1,0 +1,7 @@
+
+{
+  "name": "Backend Prueba Desarrollo",
+  "version": "1.0.0",
+  "description": "API de inventario para productos, autenticación y compras",
+  "url": "http://localhost:4000/api"
+}
