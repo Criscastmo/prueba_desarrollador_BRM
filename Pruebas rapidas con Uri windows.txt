@@ -1,11 +1,9 @@
-
-
-
 //Creación de cliente
 Invoke-RestMethod -Uri "http://localhost:4000/api/auth/register" `
   -Method POST `
   -Headers @{ "Content-Type" = "application/json" } `
   -Body '{ "nombre": "Pedro Perez", "email": "pedro@test.com", "password": "12asdf6", "documento": "1250300", "telefono": "307834567", "direccion": "Carrera 7"}'
+
 
 //Creación de admin (se cambia luego en la base de datos)
 Invoke-RestMethod -Uri "http://localhost:4000/api/auth/register" `
@@ -13,18 +11,6 @@ Invoke-RestMethod -Uri "http://localhost:4000/api/auth/register" `
   -Headers @{ "Content-Type" = "application/json" } `
   -Body '{ "nombre": "Juana Admin", "email": "juana@admin.com", "password": "123456", "documento": "100200800", "telefono": "3001234565", "direccion": "Calle 321"}'
 
-//Login cliente
-Invoke-RestMethod -Uri "http://localhost:4000/api/auth/login" `
-  -Method POST `
-  -Headers @{ "Content-Type" = "application/json" } `
-  -Body '{ "email": "juan@test.com", "password": "123456" }'
-
-//Login admin
-$loginBody = '{ "email": "juana@admin.com", "password": "123456" }'
-Invoke-RestMethod -Uri "http://localhost:4000/api/auth/login" `
-  -Method POST `
-  -Headers @{ "Content-Type" = "application/json" } `
-  -Body $loginBody
 
 //Login para clave completa
 $response = Invoke-RestMethod -Uri "http://localhost:4000/api/auth/login" `
@@ -37,8 +23,8 @@ Write-Output $response
 Invoke-RestMethod -Uri "http://localhost:4000/api/productos" -Method GET
 
 //Ver factura (cliente)
-$token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiY2xpZW50ZSIsImlhdCI6MTc1NjM1OTMwNiwiZXhwIjoxNzU2MzYyOTA2fQ.WgcP7zYiWX_kt6VUqm32aUVEOMDTPMguJKhvTSqtB24"
-$id = "7"
+$token = "Pon el token aquí"
+$id = "id a probar"
 Invoke-RestMethod -Uri "http://localhost:4000/api/compras/$id" `
   -Method GET `
   -Headers @{ 
@@ -47,7 +33,7 @@ Invoke-RestMethod -Uri "http://localhost:4000/api/compras/$id" `
   }
 
 //Ver historial (cliente)
-$token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiY2xpZW50ZSIsImlhdCI6MTc1NjM1OTMwNiwiZXhwIjoxNzU2MzYyOTA2fQ.WgcP7zYiWX_kt6VUqm32aUVEOMDTPMguJKhvTSqtB24"
+$token = "Pon el token aquí"
 Invoke-RestMethod -Uri "http://localhost:4000/api/compras/historial" `
   -Method GET `
   -Headers @{ 
@@ -55,40 +41,44 @@ Invoke-RestMethod -Uri "http://localhost:4000/api/compras/historial" `
       "Authorization" = "Bearer $token"
   }
 
-
-//Crear producto, se debe cambiar la key de autorización
-Invoke-RestMethod -Uri "http://localhost:4000/api/productos" `
-  -Method POST `
-  -Headers @{ 
-      "Content-Type" = "application/json"; 
-      "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiY2xpZW50ZSIsImlhdCI6MTc1NjMyMjYzNCwiZXhwIjoxNzU2MzI2MjM0fQ.-WYZ3DYI7Shg5dA4KUIPTV2GwkkkjwN7Wfa7ihKkS0A"
-  } `
-  -Body '{ "numero_lote": "L003", "nombre": "Computador Asus", "precio": 000, "cantidad_disponible": 50 }'
-
-// Crear compra (solo cliente)
+// Crear compra (solo cliente), se deben crear antes uno o varios productos
+$token = "Pon el token aquí"
 Invoke-RestMethod -Uri "http://localhost:4000/api/compras" `
   -Method POST `
   -Headers @{ 
       "Content-Type" = "application/json"; 
-      "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiY2xpZW50ZSIsImlhdCI6MTc1NjMyMjYzNCwiZXhwIjoxNzU2MzI2MjM0fQ.-WYZ3DYI7Shg5dA4KUIPTV2GwkkkjwN7Wfa7ihKkS0A"
+      "Authorization" = "Bearer $token"
   } `
   -Body '{ "productos": [ { "id": 1, "cantidad": 5 } ] }'
 
-//Ver todas las compras admin
-$response = Invoke-RestMethod -Uri "http://localhost:4000/api/compras" `
-  -Headers @{ Authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NTYzMjczNjgsImV4cCI6MTc1NjMzMDk2OH0.u0IB3s6zvZIcFP2W6i4QsMniaHsbenII589fDb5QYmg
-" } `
-  -Method GET
 
+//Crear producto (solo admin), se debe cambiar loguear admin para obtener el token
+$token = "Pon el token aquí"
+Invoke-RestMethod -Uri "http://localhost:4000/api/productos" `
+  -Method POST `
+  -Headers @{ 
+      "Content-Type" = "application/json"; 
+      "Authorization" = "Bearer $token"
+  } `
+  -Body '{ "numero_lote": "L003", "nombre": "Computador Asus", "precio": 000, "cantidad_disponible": 50 }'
+
+
+//Ver todas las compras (solo admin), se pone adicional de Depth para confirmar que trae los productos
+$token = "Pon el token aquí"
+$response = Invoke-RestMethod -Uri "http://localhost:4000/api/compras" `
+  -Headers @{ Authorization = "Bearer $token"} `
+  -Method GET
 # Inspecciona
 $response
 $response.resultados[0].usuario
 $response.resultados[0].detalles | ConvertTo-Json -Depth 5
 
-//crear producto
+
+//crear producto (solo admin)
+$token = "Pon el token aquí"
 Invoke-RestMethod -Uri "http://localhost:4000/api/productos" `
   -Method POST `
-  -Headers @{ "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NTYzMjczNjgsImV4cCI6MTc1NjMzMDk2OH0.u0IB3s6zvZIcFP2W6i4QsMniaHsbenII589fDb5QYmg"; "Content-Type" = "application/json" } `
+  -Headers @{ "Authorization" = "Bearer $token"; "Content-Type" = "application/json" } `
   -Body '{
     "numero_lote": "L002",
     "nombre": "Laptop HP",
@@ -97,22 +87,24 @@ Invoke-RestMethod -Uri "http://localhost:4000/api/productos" `
     "fecha_ingreso": "2025-08-27"
   }'
 
-//Listar productos
+//Listar productos (todos)
 Invoke-RestMethod -Uri "http://localhost:4000/api/productos" -Method GET
 
 //Ver detalle de un producto especifico
 Invoke-RestMethod -Uri "http://localhost:4000/api/productos/1" -Method GET
 
 //Actualizar producto
+$token = "Pon el token aquí"
 Invoke-RestMethod -Uri "http://localhost:4000/api/productos/1" `
   -Method PUT `
-  -Headers @{ "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NTYzMjczNjgsImV4cCI6MTc1NjMzMDk2OH0.u0IB3s6zvZIcFP2W6i4QsMniaHsbenII589fDb5QYmg"; "Content-Type" = "application/json" } `
+  -Headers @{ "Authorization" = "Bearer $token"; "Content-Type" = "application/json" } `
   -Body '{
     "precio": 2300000,
     "cantidad_disponible": 8
   }'
 
 //Borrar producto
+$token = "Pon el token aquí"
 Invoke-RestMethod -Uri "http://localhost:4000/api/productos/4" `
   -Method DELETE `
-  -Headers @{ "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NTYzMjczNjgsImV4cCI6MTc1NjMzMDk2OH0.u0IB3s6zvZIcFP2W6i4QsMniaHsbenII589fDb5QYmg" }
+  -Headers @{ "Authorization" = "Bearer $token" }
