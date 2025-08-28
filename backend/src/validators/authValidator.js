@@ -1,4 +1,8 @@
-// Validadores para registro y login usando Joi
+/**
+ * Validadores para registro y login usando Joi
+ * Define esquemas y funciones middleware para validar req.body
+ * Retorna 400 con mensaje de error si la validación falla
+ */
 
 const Joi = require('joi');
 

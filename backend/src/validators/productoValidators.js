@@ -1,3 +1,8 @@
+/**
+ * Validadores para productos usando Joi
+ * Define esquemas para crear y actualizar productos
+ * Exporta los esquemas para ser usados en middleware de rutas
+ */
 const Joi = require('joi');
 
 // Esquema para crear producto

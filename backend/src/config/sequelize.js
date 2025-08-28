@@ -1,3 +1,8 @@
+/*
+* Configuración de Sequelize para la conexión a la base de datos MySQL
+* Usa variables de entorno para la configuración, pero tiene valores por defecto
+* para facilitar el desarrollo local sin necesidad de un archivo .env
+*/
 const { Sequelize } = require('sequelize');
 
 //Conexión a la base de datos

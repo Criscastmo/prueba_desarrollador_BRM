@@ -1,3 +1,7 @@
+/**
+ * Controladores para manejar compras
+ * Crear compra, obtener factura, listar compras (admin)
+ */
 const { Usuario, Producto, Compra, DetalleCompra } = require('../models');
 
 // Crear una compra
@@ -94,7 +98,7 @@ async function obtenerFactura(req, res){
     // Incluir asociaciones usando los alias definidos en models/index.js
     const compra = await Compra.findByPk(compraId, {
       include: [
-        { model: Usuario, as: 'usuario', attributes: ['id', 'nombre', 'email'] },
+        { model: Usuario, as: 'usuario', attributes: ['id', 'nombre', 'documento', 'email'] },
         {
           model: DetalleCompra,
           as: 'detalles',
@@ -116,6 +120,41 @@ async function obtenerFactura(req, res){
   } catch (err) {
     console.error('Error en obtenerFactura:', err);
     return res.status(500).json({ error: 'Error al obtener la factura' });
+  }
+}
+
+// Obtener historial de compras del cliente logueado
+async function obtenerHistorial(req, res) {
+  try {
+    // verifyToken setea req.userId y req.userRole
+    const userId = req.userId;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const compras = await Compra.findAndCountAll({
+      where: { usuario_id: userId },
+      include: [
+        {
+          model: DetalleCompra,
+          as: 'detalles',
+          include: [{ model: Producto, as: 'producto', attributes: ['id', 'nombre', 'precio'] }],
+        },
+      ],
+      limit,
+      offset,
+      order: [['fecha_compra', 'DESC']],
+    });
+
+    res.json({
+      total: compras.count,
+      pagina: page,
+      paginas: Math.ceil(compras.count / limit),
+      resultados: compras.rows,
+    });
+  } catch (err) {
+    console.error('Error al obtener historial de compras:', err);
+    res.status(500).json({ error: 'Error al obtener historial de compras' });
   }
 }
 
@@ -155,5 +194,6 @@ async function listarCompras (req, res) {
 module.exports = {
     crearCompra,
     obtenerFactura,
-    listarCompras
-};
+    listarCompras,
+    obtenerHistorial
+  };

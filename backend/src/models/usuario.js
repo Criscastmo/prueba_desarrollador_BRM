@@ -1,3 +1,9 @@
+/**
+ * Modelo de usuario
+ * Define la estructura de la tabla 'usuarios' en la base de datos
+ * Usa una tabla separada para roles por buenas prácticas y escalabilidad
+ * Se maneja el valor por defecto del rol en el modelo para evitar que cualquier usuario sea admin
+ */
 const { DataTypes, Model } = require('sequelize');
 
 class Usuario extends Model {

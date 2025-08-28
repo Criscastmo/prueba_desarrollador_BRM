@@ -1,3 +1,7 @@
+/**
+ * Validadores para compras usando Joi
+ * Define esquemas y funciones middleware para validar req.body
+ */
 const Joi = require('joi');
 // Crea el esquema para la validación de compras
 const compraSchema = Joi.object({

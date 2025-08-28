@@ -1,3 +1,8 @@
+/**
+ * Modelo de rol
+ * Define la estructura de la tabla 'rol' en la base de datos
+ * Se crea la tabla para facilitar el crecimiento futuro de roles y mantener buenas prácticas
+ */
 const { DataTypes, Model } = require('sequelize');
 
 class Rol extends Model {

@@ -1,4 +1,7 @@
-// Encargado de levantar el servidor
+/**
+ * Archivo principal del servidor
+ * Configura y arranca el servidor Express
+ */
 require('dotenv').config();
 const app = require('./app');
 const sequelize = require('./config/sequelize');
